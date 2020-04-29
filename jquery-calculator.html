@@ -117,18 +117,23 @@
           switch (op) {
             case 'plus':
             result = first + second
+            first =result
             break
             case 'minus':
             result = first - second
+            first = result
             break
             case 'times': 
             result = first * second
+            first = result
             break
             case 'divide': 
             result = first / second
+            first = result
             break
             case 'power':
             result = first ** second
+            first = result
             break
           }
           $('#result').text(result)
@@ -143,11 +148,11 @@
         first = ''
         second = ''
         op = ''
-        isOp = ''
         result = ''
-        isFirst = ''
-        isSecond = ''
-        isResult = ''
+        isFirst = false
+        isSecond = false
+        isOp = false
+        isResult = false
       })
 
 
