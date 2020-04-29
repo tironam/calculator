@@ -77,43 +77,63 @@
 
     $(document).ready(function() {
 
+      let first =''
+      let second = ''
+      let op =''
+      let isOp = false
+      let result = ''
+
     // Your code here...
+      $('.number').on('click', function () {
+        if (isOp) {
+          second += $(this).val()
+          $('#second-number').text(second)
+        } else {
+          first += $(this).val()
+          $('#first-number').text(first)
+        }
+      })
+      
+      $('.operator').on('click', function() {
+        op = $(this).val()
+        isOp = true
+        $('#operator').text($(this).children('span').text())
+      })
 
-     let firstNumber = 0
-     let secondNumber = 0
-     let operator = ''
-     let result = 0
-     let isOperatorChosen = ''
-     let isCalculated = false
-     function initializeCalculator() {
-       fistNumber = ''
-       secondNumber = ''
-       operator = ''
-       isOperatorChosen = false
-       isCalculated = false
+      $('.equal').on('click', () => {
+        first = parseInt(first)
+        second = parseInt(second)
+        switch (op) {
+          case 'plus':
+          result = first + second
+          break
+          case 'minus':
+          result = first - second
+          break
+          case 'times': 
+          result = first * second
+          break
+          case 'divide': 
+          result = first / second
+          break
+          case 'power':
+          result = first ** second
+          break
+        }
+        $('#result').text(result)
+      })
 
-       $('#first-number, #second-number, #operator, #result').empty()
-     }
-    
-    if (isOperatorChosen) {
-      secondNumber += $(this).val()
-      $('#first-number').text(secondNumber)
-    } else {
-      firstNumber +=$(this).val()
-      $('#first-number').text(firstNumber)
-    }
-
-    })
-
-    $('.operator').on('click', function () {
-      if (!firstNumber || isCalculated) {
-        return false
-      }
-
-      isOperatorChosen = true
-      operator = $(this).val
-      $('#operator').text($(this).text())
-    })
+      $('.clear').on('click', () => {
+        $('#first-number').text('')
+        $('#second-number').text('')
+        $('#operator').text('')
+        $('#result').text('')
+        first = ''
+        second = ''
+        op = ''
+        isOp = ''
+        result = ''
+      })
 
 
 
