@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <!-- Added a link to our external stylesheet-->
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 
 </head>
 <body>
@@ -80,47 +80,59 @@
       let first =''
       let second = ''
       let op =''
+      let isFirst = false
+      let isSecond = false
       let isOp = false
       let result = ''
+      let isResult = false
 
     // Your code here...
       $('.number').on('click', function () {
-        if (isOp) {
-          second += $(this).val()
-          $('#second-number').text(second)
-        } else {
-          first += $(this).val()
-          $('#first-number').text(first)
-        }
+        if (!isResult) {
+          if (isOp) {
+            second += $(this).val()
+            isSecond = true
+            $('#second-number').text(second)
+          } else {
+            first += $(this).val()
+            isFirst = true
+            $('#first-number').text(first)
+          }
+        } 
       })
       
       $('.operator').on('click', function() {
-        op = $(this).val()
-        isOp = true
-        $('#operator').text($(this).children('span').text())
+        if (isFirst && !isSecond) {
+          op = $(this).val()
+          isOp = true
+          $('#operator').text($(this).children('span').text())
+        }
       })
 
       $('.equal').on('click', () => {
-        first = parseInt(first)
-        second = parseInt(second)
-        switch (op) {
-          case 'plus':
-          result = first + second
-          break
-          case 'minus':
-          result = first - second
-          break
-          case 'times': 
-          result = first * second
-          break
-          case 'divide': 
-          result = first / second
-          break
-          case 'power':
-          result = first ** second
-          break
-        }
-        $('#result').text(result)
+        if (isSecond) {
+          first = parseInt(first)
+          second = parseInt(second)
+          isResult = true
+          switch (op) {
+            case 'plus':
+            result = first + second
+            break
+            case 'minus':
+            result = first - second
+            break
+            case 'times': 
+            result = first * second
+            break
+            case 'divide': 
+            result = first / second
+            break
+            case 'power':
+            result = first ** second
+            break
+          }
+          $('#result').text(result)
+      }
       })
 
       $('.clear').on('click', () => {
@@ -133,6 +145,9 @@
         op = ''
         isOp = ''
         result = ''
+        isFirst = ''
+        isSecond = ''
+        isResult = ''
       })
 
 
